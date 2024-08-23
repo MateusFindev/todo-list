@@ -1,24 +1,33 @@
-import React, { useState } from "react";
-import './styles.css'
+import React, { useEffect, useState } from "react";
+import { TodoProps } from "../../@types/todo";
+import "./styles.css";
 
 type CriarTodoProps = {
-    onEnviar : (tituloTarefa: string) => void
-}
-
-const CriarTodo = ({onEnviar}: CriarTodoProps) => {
-    const [getTitulo, setTitulo] = useState<string>('');
-
+    criarTodo: (todo: TodoProps) => void;
+  };
+  
+  const CriarTodo = ({ criarTodo }: CriarTodoProps) => {
+    const [getTodo, setTodo] = useState<TodoProps>({ id: 0, titulo: "" });
+  
+    useEffect(() => {}, [getTodo]);
+  
     return (
+      <div>
+        <h1>Crie sua tarefa</h1>
         <div>
-            <h1>Criar Todo</h1>
-            <input type="text"
-                placeholder="Digite o título da tarefa"
-                onChange={(event) => {
-                    setTitulo(event.target.value)
-                }} />
-            <button onClick={() => onEnviar(getTitulo)}>Criar tarefa</button>
+          <input
+            placeholder="Digite o nome da tarefa"
+            onChange={(evento) =>
+              setTodo({ ...getTodo, 
+                  titulo: evento.target.value })
+            }
+          />
+          <button onClick={() => 
+              criarTodo(getTodo)}>Criar tarefa
+          </button>
         </div>
-    )
-}
+      </div>
+    );
+  };
 
 export default CriarTodo;

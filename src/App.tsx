@@ -1,32 +1,11 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import './App.css';
-import TodoList from './components/todolist';
-import CriarTodo from './components/criarTodo';
-import { TodoProps } from './@types/todo';
+import Router from './components/router';
 
 function App() {
-  const [getTodos, setTodos] = useState<TodoProps[]>([]);
-
-  useEffect(()=> {
-    console.log({getTodos})
-  }, [getTodos]);
-
-  const tratarCriacaoDeTarefas = (titulo: string) => {
-    const id: number = getTodos.length + 1;
-    const tarefa: TodoProps = {id, titulo};
-    
-
-    const tmpTarefas: TodoProps[] = [...getTodos, tarefa];
-    setTodos(tmpTarefas);
-  }
-
   return (
-    <div className="App">
-      <CriarTodo 
-        onEnviar={(titulo: string) => tratarCriacaoDeTarefas(titulo)} />
-      <TodoList 
-        todos={getTodos}
-        onChange={(newTodoList: TodoProps[]) => setTodos(newTodoList)}/>
+    <div className='App'>
+      <Router />
     </div>
   );
 }
